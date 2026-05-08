@@ -1,22 +1,346 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>INFON 1045 - Архив мелодий</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INFON Retro Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #090979 0%, #020024 100%);
+      min-height: 100vh;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 50px;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-icon {
+      font-size: 34px;
+      filter: drop-shadow(0 0 8px #00d9ff);
+    }
+
+    .logo h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 26px;
+      color: #ffe600;
+      text-shadow: 0 0 12px rgba(255,230,0,0.7);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #00d9ff;
+    }
+
+    .hero {
+      padding: 100px 20px 60px;
+      text-align: center;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .hero h2 {
+      font-size: 58px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero span {
+      color: #ffe600;
+      text-shadow: 0 0 15px rgba(255,230,0,0.8);
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 28px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .btn-primary {
+      background: #ffe600;
+      color: black;
+      box-shadow: 0 0 20px rgba(255,230,0,0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .songs {
+      max-width: 1200px;
+      margin: 50px auto 80px;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .song-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .song-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      transition: 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .song-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #ffe600, #00d9ff);
+    }
+
+    .song-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .song-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      background: rgba(255,230,0,0.15);
+      color: #ffe600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .song-icon {
+      font-size: 30px;
+    }
+
+    .song-card h3 {
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+
+    .song-card p {
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #00d9ff;
+      color: black;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      color: rgba(255,255,255,0.55);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+      }
+
+      .hero h2 {
+        font-size: 40px;
+      }
+
+      .logo h1 {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
-<body style="background-color: #0000AA; color: white; font-family: 'Courier New', Courier, monospace; text-align: center;">
-    <h1 style="background-color: yellow; color: blue; padding: 10px;">📱 INFON 1045 RETRO</h1>
-    <p>Добро пожаловать в архив мобильного шарма!</p>
-    <hr>
-    <div style="border: 2px dashed white; display: inline-block; padding: 20px;">
-        <h3>КАТАЛОГ МЕЛОДИЙ:</h3>
-        <p>1. <a href="bara.mmf" style="color: #00FF00;">Bara Bara (MMF + Вибрация)</a></p>
-        <p>2. <a href="boomer.mid" style="color: #00FF00;">Бумер (Полифония MIDI)</a></p>
-        <p>3. <a href="karaoke.mp4" style="color: #00FF00;">Мобильное караоке</a></p>
+<body>
+  <div class="background-grid"></div>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">📱</div>
+      <h1>INFON RETRO</h1>
     </div>
-    <hr>
-    <p style="font-size: 12px;">Выбрал? Жми на ссылку, чтобы скачать в телефон!</p>
-    <p style="font-size: 10px; color: gray;">(с) Неофициальный фан-архив 2026</p>
+
+    <nav>
+      <a href="#songs">Мелодии</a>
+      <a href="#">Архив</a>
+      <a href="#">О проекте</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Мобильный <span>ретро-шарм</span><br>из 2000-х</h2>
+
+    <p>
+      Архив старых мобильных мелодий, MMF, MIDI и вибраций в стиле кнопочных телефонов.
+      Атмосфера старого интернета, INFON и эпохи Java-телефонов.
+    </p>
+
+    <div class="buttons">
+      <button class="btn btn-primary">Слушать мелодии</button>
+      <button class="btn btn-secondary">Открыть архив</button>
+    </div>
+  </section>
+
+  <section class="songs" id="songs">
+    <h2 class="section-title">Популярные мелодии</h2>
+
+    <div class="song-grid">
+      <div class="song-card">
+        <div class="song-top">
+          <div class="tag">MMF + Вибрация</div>
+          <div class="song-icon">🎵</div>
+        </div>
+
+        <h3>Bara Bara</h3>
+        <p>
+          Классическая ретро-мелодия для кнопочных телефонов.
+          Поддержка вибрации и старого MMF-формата.
+        </p>
+
+        <button class="download-btn">Скачать</button>
+      </div>
+
+      <div class="song-card">
+        <div class="song-top">
+          <div class="tag">MIDI</div>
+          <div class="song-icon">📼</div>
+        </div>
+
+        <h3>Бумер</h3>
+        <p>
+          Полифоническая версия популярной мелодии в стиле старых Sony Ericsson и Samsung.
+        </p>
+
+        <button class="download-btn">Скачать</button>
+      </div>
+
+      <div class="song-card">
+        <div class="song-top">
+          <div class="tag">Караоке</div>
+          <div class="song-icon">🎤</div>
+        </div>
+
+        <h3>Мобильное караоке</h3>
+        <p>
+          Ретро-контент в стиле WAP-сайтов и мобильных сервисов середины 2000-х.
+        </p>
+
+        <button class="download-btn">Открыть</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 INFON Retro Archive — фан-проект в стиле мобильного интернета 2000-х
+  </footer>
 </body>
 </html>
+
