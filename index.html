@@ -6,19 +6,59 @@
 
 <style>
 body {
-  font-family: Arial;
-  background: #111;
-  color: #fff;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  color: #222;
 }
 
-/* кнопка */
-button {
-  padding: 8px 12px;
-  margin: 5px;
-  cursor: pointer;
+/* шапка */
+header {
+  background: #1a1a1a;
+  color: white;
+  padding: 15px;
+  text-align: center;
 }
 
-/* модальное окно */
+/* меню */
+nav {
+  background: #333;
+  text-align: center;
+}
+
+nav a {
+  display: inline-block;
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: #555;
+}
+
+/* блок мелодий */
+.container {
+  padding: 20px;
+}
+
+.song {
+  background: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+/* футер */
+footer {
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+/* модалка (пока скрыта) */
 .modal {
   display: none;
   position: fixed;
@@ -26,13 +66,12 @@ button {
   left:0;
   width:100%;
   height:100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.6);
 }
 
 .modal-box {
-  background: #fff;
-  color: #000;
-  width: 260px;
+  background: white;
+  width: 250px;
   margin: 20% auto;
   padding: 20px;
   text-align: center;
@@ -44,19 +83,37 @@ button {
 
 <body>
 
-<h1>INFON Retro Archive</h1>
+<header>
+  <h1>INFON Retro Archive</h1>
+</header>
 
-<!-- пример мелодии -->
-<div class="song">
-  <p>Популярная мелодия #1</p>
-  <button onclick="openModal()">Скачать</button>
+<nav>
+  <a href="#songs">Мелодии</a>
+  <a href="#archive">Архив</a>
+  <a href="#about">О проекте</a>
+</nav>
+
+<div class="container">
+
+  <h2 id="songs">Популярные мелодии</h2>
+
+  <div class="song">
+    <p>Мелодия 1</p>
+    <button onclick="openModal()">Скачать</button>
+  </div>
+
+  <div class="song">
+    <p>Мелодия 2</p>
+    <button onclick="openModal()">Скачать</button>
+  </div>
+
 </div>
 
 <footer>
   © 2026 INFON Retro Archive — фан-проект в стиле мобильного интернета 2000-х
 </footer>
 
-<!-- 🔽 МОДАЛЬНОЕ ОКНО -->
+<!-- модальное окно -->
 <div id="modal" class="modal">
   <div class="modal-box">
     <h3>Выберите формат</h3>
@@ -70,7 +127,6 @@ button {
   </div>
 </div>
 
-<!-- ⚙️ СКРИПТ -->
 <script>
 function openModal() {
   document.getElementById("modal").style.display = "block";
@@ -81,14 +137,7 @@ function closeModal() {
 }
 
 function download(format) {
-  alert("Скачивание в формате: " + format);
-
-  // пример файла (поменяешь потом на свои)
-  let link = document.createElement("a");
-  link.href = "files/music." + format;
-  link.download = "music." + format;
-  link.click();
-
+  alert("Скачивание: " + format);
   closeModal();
 }
 </script>
