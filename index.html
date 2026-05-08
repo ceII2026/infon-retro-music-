@@ -6,59 +6,73 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
   margin: 0;
-  color: #222;
+  font-family: Arial;
+  background: #e9e9e9;
 }
 
-/* шапка */
+/* 🌈 шапка с градиентом */
 header {
-  background: #1a1a1a;
+  background: linear-gradient(90deg, #ff512f, #dd2476);
   color: white;
-  padding: 15px;
   text-align: center;
+  padding: 20px;
 }
 
-/* меню */
+/* 📱 меню */
 nav {
-  background: #333;
+  background: #222;
   text-align: center;
 }
 
 nav a {
   display: inline-block;
+  padding: 12px 18px;
   color: white;
-  padding: 10px 15px;
   text-decoration: none;
 }
 
 nav a:hover {
-  background: #555;
+  background: #ff512f;
 }
 
-/* блок мелодий */
+/* 🎵 блоки мелодий */
 .container {
   padding: 20px;
 }
 
 .song {
   background: white;
-  padding: 10px;
   margin-bottom: 10px;
-  border-radius: 6px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* футер */
+/* 🔘 кнопки */
+button {
+  padding: 8px 12px;
+  border: none;
+  background: #ff512f;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #dd2476;
+}
+
+/* 📦 футер */
 footer {
-  background: #1a1a1a;
+  background: #222;
   color: white;
   text-align: center;
   padding: 10px;
   margin-top: 20px;
 }
 
-/* модалка (пока скрыта) */
+/* 🪟 модальное окно */
 .modal {
   display: none;
   position: fixed;
@@ -71,7 +85,7 @@ footer {
 
 .modal-box {
   background: white;
-  width: 250px;
+  width: 260px;
   margin: 20% auto;
   padding: 20px;
   text-align: center;
@@ -85,6 +99,7 @@ footer {
 
 <header>
   <h1>INFON Retro Archive</h1>
+  <p>Мелодии старого мобильного интернета</p>
 </header>
 
 <nav>
@@ -95,25 +110,25 @@ footer {
 
 <div class="container">
 
-  <h2 id="songs">Популярные мелодии</h2>
+  <h2 id="songs">🔥 Популярные мелодии</h2>
 
   <div class="song">
-    <p>Мелодия 1</p>
+    <p>Лесник — Король и Шут</p>
     <button onclick="openModal()">Скачать</button>
   </div>
 
   <div class="song">
-    <p>Мелодия 2</p>
+    <p>Мелодия Nokia Classic</p>
     <button onclick="openModal()">Скачать</button>
   </div>
 
 </div>
 
 <footer>
-  © 2026 INFON Retro Archive — фан-проект в стиле мобильного интернета 2000-х
+  © 2026 INFON Retro Archive — фан-проект в стиле 2000-х
 </footer>
 
-<!-- модальное окно -->
+<!-- 🪟 окно -->
 <div id="modal" class="modal">
   <div class="modal-box">
     <h3>Выберите формат</h3>
